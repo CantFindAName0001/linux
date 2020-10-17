@@ -186,7 +186,7 @@ static int __init set_reset_devices(char *str)
 __setup("reset_devices", set_reset_devices);
 
 static const char *argv_init[MAX_INIT_ARGS+2] = { "init", NULL, };
-const char *envp_init[MAX_INIT_ENVS+2] = { "HOME=/", "TERM=linux", NULL, };
+const char        *envp_init[MAX_INIT_ENVS+2] = { "HOME=/", "TERM=linux", NULL, };
 static const char *panic_later, *panic_param;
 
 extern const struct obs_kernel_param __setup_start[], __setup_end[];
@@ -264,9 +264,9 @@ early_param("loglevel", loglevel);
 #ifdef CONFIG_BLK_DEV_INITRD
 static void * __init get_boot_config_from_initrd(u32 *_size, u32 *_csum)
 {
-	u32 size, csum;
+	u32   size, csum;
 	char *data;
-	u32 *hdr;
+	u32  *hdr;
 
 	if (!initrd_end)
 		return NULL;
@@ -312,9 +312,9 @@ static int __init xbc_snprint_cmdline(char *buf, size_t size,
 				      struct xbc_node *root)
 {
 	struct xbc_node *knode, *vnode;
-	char *end = buf + size;
-	const char *val;
-	int ret;
+	char            *end = buf + size;
+	const char      *val;
+	int              ret;
 
 	xbc_node_for_each_key_value(root, knode, val) {
 		ret = xbc_node_compose_key_after(root, knode,
@@ -347,8 +347,8 @@ static int __init xbc_snprint_cmdline(char *buf, size_t size,
 static char * __init xbc_make_cmdline(const char *key)
 {
 	struct xbc_node *root;
-	char *new_cmdline;
-	int ret, len = 0;
+	char            *new_cmdline;
+	int              ret, len    = 0;
 
 	root = xbc_find_node(key);
 	if (!root)
@@ -397,10 +397,10 @@ static void __init setup_boot_config(const char *cmdline)
 {
 	static char tmp_cmdline[COMMAND_LINE_SIZE] __initdata;
 	const char *msg;
-	int pos;
-	u32 size, csum;
-	char *data, *copy, *err;
-	int ret;
+	int         pos;
+	u32         size, csum;
+	char       *data, *copy, *err;
+	int         ret;
 
 	/* Cut out the bootconfig data even if we have no bootconfig option */
 	data = get_boot_config_from_initrd(&size, &csum);
@@ -664,7 +664,7 @@ static __initdata DECLARE_COMPLETION(kthreadd_done);
 noinline void __ref rest_init(void)
 {
 	struct task_struct *tsk;
-	int pid;
+	int                 pid;
 
 	rcu_scheduler_starting();
 	/*
@@ -737,7 +737,7 @@ void __init parse_early_options(char *cmdline)
 /* Arch code calls this early on, or if not, just before other parsing. */
 void __init parse_early_param(void)
 {
-	static int done __initdata;
+	static int  done __initdata;
 	static char tmp_cmdline[COMMAND_LINE_SIZE] __initdata;
 
 	if (done)
@@ -1151,8 +1151,8 @@ trace_initcall_start_cb(void *data, initcall_t fn)
 static __init_or_module void
 trace_initcall_finish_cb(void *data, initcall_t fn, int ret)
 {
-	ktime_t *calltime = (ktime_t *)data;
-	ktime_t delta, rettime;
+	ktime_t           *calltime = (ktime_t *)data;
+	ktime_t            delta, rettime;
 	unsigned long long duration;
 
 	rettime = ktime_get();
@@ -1194,9 +1194,9 @@ static inline void do_trace_initcall_finish(initcall_t fn, int ret)
 
 int __init_or_module do_one_initcall(initcall_t fn)
 {
-	int count = preempt_count();
+	int  count = preempt_count();
 	char msgbuf[64];
-	int ret;
+	int  ret;
 
 	if (initcall_blacklisted(fn))
 		return -EPERM;
@@ -1280,9 +1280,9 @@ static void __init do_initcall_level(int level, char *command_line)
 
 static void __init do_initcalls(void)
 {
-	int level;
-	size_t len = strlen(saved_command_line) + 1;
-	char *command_line;
+	int     level;
+	size_t  len = strlen(saved_command_line) + 1;
+	char   *command_line;
 
 	command_line = kzalloc(len, GFP_KERNEL);
 	if (!command_line)
